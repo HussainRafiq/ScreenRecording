@@ -1,0 +1,42 @@
+﻿<html>
+<head>
+
+    <script type="text/javascript" src="~/Scripts/speedtest.js"></script>
+</head>
+<body>
+    <h1>LibreSpeed Example</h1>
+
+    
+    <h4>Download</h4>
+    <p id="download"></p>
+
+    <h4>Upload</h4>
+    <p id="upload"></p>
+
+    <h4>Latency</h4>
+    <p id="ping"></p>
+
+    <script type="text/javascript">
+        var up;
+        var dow;
+        var s = new Speedtest();
+        s.onupdate = function (data) { // when status is received, put the values in the appropriate fields
+            up = data.ulStatus;
+            dow = data.dlStatus;
+            document.getElementById('download').textContent = data.dlStatus + ' Mbit/s'
+            document.getElementById('upload').textContent = data.ulStatus + ' Mbit/s'
+            document.getElementById('ping').textContent = data.pingStatus + ' ms, ' + data.jitterStatus + ' ms jitter'
+        }
+        s.onend = function (aborted) {
+            console.log(aborted);
+            console.log(up, "Upl");
+            
+            console.log(dow, "Dow");
+        }
+        s.start(); // start the speedtest with default settings
+    </script>
+
+    <a href="https://github.com/librespeed/speedtest">Source code</a>
+
+</body>
+</html>
